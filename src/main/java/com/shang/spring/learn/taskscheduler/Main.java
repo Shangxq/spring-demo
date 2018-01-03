@@ -1,6 +1,5 @@
 package com.shang.spring.learn.taskscheduler;
 
-import com.shang.spring.learn.taskexecutor.TaskExecutorConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
