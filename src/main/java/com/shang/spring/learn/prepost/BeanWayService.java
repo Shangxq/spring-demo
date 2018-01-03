@@ -1,6 +1,5 @@
 package com.shang.spring.learn.prepost;
 
-import org.springframework.stereotype.Component;
 
 public class BeanWayService {
     public void init(){
