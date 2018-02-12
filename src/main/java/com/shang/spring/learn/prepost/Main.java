@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(BeanConfig.class);
         context.getBean(BeanWayService.class);
-        context.getBean(JSR250WayService.class);
+        context.getBean(JSR250WayService.class).say();
         context.close();
     }
 }

@@ -5,12 +5,16 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
+import org.springframework.beans.factory.config.CustomEditorConfigurer;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,6 +24,11 @@ public class Main {
         annotationConfigApplicationContext.register(DiConfig.class);
         annotationConfigApplicationContext.register(JavaConfig.class);
         annotationConfigApplicationContext.refresh();
+        CustomEditorConfigurer customEditorConfigurer=new CustomEditorConfigurer();
+        DatePropertyEditorRegistrar [] propertyEditors= new DatePropertyEditorRegistrar[1];
+        propertyEditors[0]= new DatePropertyEditorRegistrar();
+        customEditorConfigurer.setPropertyEditorRegistrars(propertyEditors);
+        customEditorConfigurer.postProcessBeanFactory(annotationConfigApplicationContext.getBeanFactory());
         System.out.println("-------------------scope test ---------------");
         ThreadScope threadScope = new ThreadScope();
         factory.registerScope("thread",threadScope);
@@ -50,7 +59,9 @@ public class Main {
         System.out.println(functionService.sayHello("shang"));
         UserFunctionBeanService userFunctionBeanService= (UserFunctionBeanService) annotationConfigApplicationContext.getBean("userFunctionBeanService");
         System.out.println(userFunctionBeanService.sayHi(" nihao"));
-
+        System.out.println("----------------date-------------------");
+        annotationConfigApplicationContext.getBean(DateBean.class).sayDate();
+        System.out.println("----------------date-------------------");
         annotationConfigApplicationContext.close();
     }
 }
