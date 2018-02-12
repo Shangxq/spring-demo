@@ -16,7 +16,7 @@ public class BeanConfig {
     ResourceBundleMessageSource getI18n(){
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
-        messageSource.setDefaultEncoding("GBK");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 }
