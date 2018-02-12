@@ -12,7 +12,7 @@ public class BeanConfig {
     BeanWayService beanWayService(){
         return new BeanWayService();
     }
-    @Bean("messageSource")
+    @Bean("messageSource")//如果方法名叫messageSource就不需要指定bean名字
     ResourceBundleMessageSource getI18n(){
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
