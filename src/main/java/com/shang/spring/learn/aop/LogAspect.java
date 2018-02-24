@@ -1,11 +1,10 @@
 package com.shang.spring.learn.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -28,5 +27,17 @@ public class LogAspect {
         MethodSignature signature=(MethodSignature) joinPoint.getSignature();
         Method method=signature.getMethod();
         System.out.println("方法拦截"+method.getName());
+    }
+    @Around("annotationPointCut()")
+    public Object around(final ProceedingJoinPoint pjp){
+        System.out.println("开始拦截啦");
+        Object object = null;
+        try {
+            object=pjp.proceed();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        System.out.println("拦截完了啊");
+        return object;
     }
 }
